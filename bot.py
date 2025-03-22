@@ -154,4 +154,57 @@ def unban(message):
         bot.delete_message(message.chat.id, message.message_id)
         bot.delete_message(message.chat.id, sent_message.message_id)
 
+#autoedeleted
+FORBIDDEN_WORDS = ["PRICE", "pRice", "pRICe", "pRICE", "pRice", "prIce", "priCe", "pricE", "PRice", "PRIce", "PRICe", "price"]
+
+# ID
+ALLOWED_CHANNEL_IDS = [-1001696392169, -1002168291561, -1002327413167]
+
+@bot.message_handler(content_types=["text", "photo", "video", "document", "audio", "voice", "video_note"])
+def handle_forwarded_message(message):
+    if message.forward_from_chat and message.forward_from_chat.type in ["channel", "supergroup"]:
+        print(f"ID пересланного канала: {message.forward_from_chat.id}")
+
+        if message.forward_from_chat.id in ALLOWED_CHANNEL_IDS:
+            print(f"Сообщение из канала {message.forward_from_chat.id} не будет удалено")
+            return
+
+        if message.text:
+            if any(word in message.text for word in FORBIDDEN_WORDS):
+                try:
+                    bot.delete_message(message.chat.id, message.message_id)
+                except Exception as e:
+                    print(f"Ошибка при удалении сообщения с текстом: {e}")
+
+        elif (message.photo or message.video or message.document or message.audio) and \
+                (message.text is None or any(word in message.text for word in FORBIDDEN_WORDS)):
+            try:
+                bot.delete_message(message.chat.id, message.message_id)
+            except Exception as e:
+                print(f"Ошибка при удалении сообщения с медиа: {e}")
+
+    else:
+        pass
+
+# ID группы, куда нужно отправлять сообщение
+chat_id = -1002066320402
+
+message = """
+📎  *ТЕЛЕГРАМ КАНАЛ/TELEGRAM CHANNEL*:  
+       [https://t.me/+qZuZbxptYWkwY2Yy](https://t.me/+qZuZbxptYWkwY2Yy)
+
+📎  *БАЗА СКАМЕРОВ/SCAM BASE*: 
+       [https://t.me/barujka_store](https://t.me/barujka_store)
+
+📎  *НОВОСТИ БАРЫЖКИ/BARUJKA NEWS*:  
+       [https://t.me/barujka_news](https://t.me/barujka_news)
+"""
+
+def send_auto_message():
+    bot.send_message(chat_id, message, parse_mode='Markdown')
+
+while True:
+    send_auto_message()
+    time.sleep(180)
+
 bot.polling(none_stop=True)
