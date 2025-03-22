@@ -9,10 +9,8 @@ bot = telebot.TeleBot(TOKEN, parse_mode="HTML")
 @bot.message_handler(content_types=['new_chat_members'])
 def welcome_new_member(message):
     for new_member in message.new_chat_members:
-        # Получаем username или first_name участника
         user_mention = f"@{new_member.username}" if new_member.username else f"<b>{new_member.first_name}</b>"
 
-        # Приветственное сообщение с тегом и ссылкой
         welcome_text = (
             f"👋 Приветствуем, {user_mention}! Ознакомьтесь с правилами, чтобы избежать недоразумений.\n\n"
             f"Нажмите на <a href='https://t.me/+qZuZbxptYWkwY2Yy'>ссылку</a>, чтобы перейти в телеграмм канал <a href='https://t.me/+qZuZbxptYWkwY2Yy'>Хижины барыжки</a>!\n\n"
@@ -57,7 +55,7 @@ def send_dm(message):
     current_time = time.time()
 
     if user_id in cooldowns and current_time - cooldowns[user_id] < COOLDOWN_TIME:
-        return  # Просто игнорируем команду, не отправляя ничего
+        return
 
     cooldowns[user_id] = time.time()
 
@@ -70,6 +68,24 @@ def send_dm(message):
         "⬆ MY DIRECT MESSAGE | МОЙ ДМ ⬆\n\n"
     )
     bot.send_message(message.chat.id, dm_text, parse_mode="Markdown")
+
+#/barujka
+@bot.message_handler(commands=['barujka'])
+def send_barujka(message):
+    user_id = message.from_user.id
+    current_time = time.time()
+
+    if user_id in cooldowns and current_time - cooldowns[user_id] < COOLDOWN_TIME:
+        return
+
+    cooldowns[user_id] = time.time()
+
+    barujka_text = (
+        "📎  *ТЕЛЕГРАМ КАНАЛ/TELEGRAM CHANNEL*:  \n       [https://t.me/+qZuZbxptYWkwY2Yy](https://t.me/+qZuZbxptYWkwY2Yy)\n\n📎  *БАЗА СКАМЕРОВ/SCAM BASE*: \n       [https://t.me/barujka_store](https://t.me/barujka_store)\n\n📎  *НОВОСТИ БАРЫЖКИ/BARUJKA NEWS*:  \n       [https://t.me/barujka_news](https://t.me/barujka_news)")
+    bot.send_message(message.chat.id, barujka_text, parse_mode="Markdown")
+
+    time.sleep(3)
+    bot.delete_message(message.chat.id, message.message_id)
 
 #/ban
 authorized_users = [5209450978, 6668382884, -1002066320402]
@@ -185,26 +201,5 @@ def handle_forwarded_message(message):
 
     else:
         pass
-
-# ID группы, куда нужно отправлять сообщение
-chat_id = -1002066320402
-
-message = """
-📎  *ТЕЛЕГРАМ КАНАЛ/TELEGRAM CHANNEL*:  
-       [https://t.me/+qZuZbxptYWkwY2Yy](https://t.me/+qZuZbxptYWkwY2Yy)
-
-📎  *БАЗА СКАМЕРОВ/SCAM BASE*: 
-       [https://t.me/barujka_store](https://t.me/barujka_store)
-
-📎  *НОВОСТИ БАРЫЖКИ/BARUJKA NEWS*:  
-       [https://t.me/barujka_news](https://t.me/barujka_news)
-"""
-
-def send_auto_message():
-    bot.send_message(chat_id, message, parse_mode='Markdown')
-
-while True:
-    send_auto_message()
-    time.sleep(180)
 
 bot.polling(none_stop=True)
