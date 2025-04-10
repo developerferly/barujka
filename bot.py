@@ -13,9 +13,12 @@ def welcome_new_member(message):
 
         welcome_text = (
             f"👋 Приветствуем, {user_mention}! Ознакомьтесь с правилами, чтобы избежать недоразумений.\n\n"
-            f"Нажмите на <a href='https://t.me/+qZuZbxptYWkwY2Yy'>ссылку</a>, чтобы перейти в телеграмм канал <a href='https://t.me/+qZuZbxptYWkwY2Yy'>Хижины барыжки</a>!\n\n"
+            f"<b>НОВЫЙ ТГК ХИЖИНЫ БАРЫЖКИ!</b>\n\n"
+            f"БАРЫЖКА ОТКРЫЛ НОВЫЙ ТГК ТАК КАК ПРОШЛЫЙ СНЕСЛИ, БУДЕТ МНОЖЕСТВО ИНТЕРЕСНЫХ ВЕЩЕЙ!\n\n"
+            f"<a href='https://t.me/+BqTQRpuGjTQ4Y2Uy'>ТОЛЬКО ГОДНЫЕ АЙТЕМЫ И ЧЕСТНЫЙ РЕСЕЙЛ</a>"
         )
-        bot.reply_to(message, welcome_text)
+        bot.reply_to(message, welcome_text, parse_mode='HTML')
+
 
 #/rules
 cooldowns = {}
@@ -81,7 +84,7 @@ def send_barujka(message):
     cooldowns[user_id] = time.time()
 
     barujka_text = (
-        "📎  *ТЕЛЕГРАМ КАНАЛ/TELEGRAM CHANNEL*:  \n       [https://t.me/+qZuZbxptYWkwY2Yy](https://t.me/+qZuZbxptYWkwY2Yy)\n\n📎  *БАЗА СКАМЕРОВ/SCAM BASE*: \n       [https://t.me/barujka_store](https://t.me/barujka_store)\n\n📎  *НОВОСТИ БАРЫЖКИ/BARUJKA NEWS*:  \n       [https://t.me/barujka_news](https://t.me/barujka_news)")
+        "📎  *ТЕЛЕГРАМ КАНАЛ/TELEGRAM CHANNEL*:  \n       [https://t.me/+BqTQRpuGjTQ4Y2Uy](https://t.me/+BqTQRpuGjTQ4Y2Uy)\n\n📎  *БАЗА СКАМЕРОВ/SCAM BASE*: \n       [https://t.me/barujka_store](https://t.me/barujka_store)\n\n📎  *НОВОСТИ БАРЫЖКИ/BARUJKA NEWS*:  \n       [https://t.me/barujka_news](https://t.me/barujka_news)")
     bot.send_message(message.chat.id, barujka_text, parse_mode="Markdown")
 
     time.sleep(3)
@@ -202,4 +205,5 @@ def handle_forwarded_message(message):
     else:
         pass
 
+bot.remove_webhook()
 bot.polling(none_stop=True)
