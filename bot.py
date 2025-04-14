@@ -72,9 +72,9 @@ def send_dm(message):
     )
     bot.send_message(message.chat.id, dm_text, parse_mode="Markdown")
 
-#/barujka
-@bot.message_handler(commands=['barujka'])
-def send_barujka(message):
+#/info
+@bot.message_handler(commands=['info'])
+def send_info(message):
     user_id = message.from_user.id
     current_time = time.time()
 
@@ -83,11 +83,31 @@ def send_barujka(message):
 
     cooldowns[user_id] = time.time()
 
-    barujka_text = (
-        "📎  *ТЕЛЕГРАМ КАНАЛ/TELEGRAM CHANNEL*:  \n       [https://t.me/+BqTQRpuGjTQ4Y2Uy](https://t.me/+BqTQRpuGjTQ4Y2Uy)\n\n📎  *БАЗА СКАМЕРОВ/SCAM BASE*: \n       [https://t.me/barujka_store](https://t.me/barujka_store)\n\n📎  *НОВОСТИ БАРЫЖКИ/BARUJKA NEWS*:  \n       [https://t.me/barujka_news](https://t.me/barujka_news)")
-    bot.send_message(message.chat.id, barujka_text, parse_mode="Markdown")
+    info_text = (
+        "ИНФОРМАЦИОННЫЙ БЛОК / INFORMATION BLOCK\n\n"
+        "*⬇ СОЦИАЛЬНЫЕ СЕТИ / SOCIAL MEDIA⬇*\n\n"
+        "📎  ТЕЛЕГРАМ КАНАЛ / TELEGRAM CHANNEL:  \n"
+        "       [https://t.me/+BqTQRpuGjTQ4Y2Uy](https://t.me/+BqTQRpuGjTQ4Y2Uy)\n\n"
+        "📎  НОВОСТИ БАРЫЖКИ / BARUJKA NEWS: \n"
+        "       [@barujka_news](https://t.me/barujka_news)\n\n"
+        "📎  ИНСТАГРАМ / INSTAGRAM: \n"
+        "       [barujka.store](https://www.instagram.com/barujka.store)\n\n"
+        "📎  ТИК ТОК / TIKTOK: \n"
+        "       [@barujka](https://www.tiktok.com/@barujka)\n\n\n"
+        "*⬆ СОЦИАЛЬНЫЕ СЕТИ / SOCIAL MEDIA⬆*\n\n\n"
+        "*⬇ КОМАНДНОЕ МЕНЮ / COMMAND MENU⬇*\n\n"
+        "/info - Отображает основную информацию и полезные ссылки.\n"
+        "/dm - Если у вас есть вопросы или вы хотите сделать покупку, напишите мне в дм.\n\n"
+        "*⬆ КОМАНДНОЕ МЕНЮ / COMMAND MENU⬆*\n\n\n"
+        "*Оригинальные* брендовые вещи (NEW & Б/У)\n"
+        "Вся продукция проверяется *лично*\n"
+        "Мы *не* размещаем реплики или *запрещённый* контент\n"
+        "👉 *ЛИЧНОЕ СООБЩЕНИЕ / DIRECT MESSAGE*: @barujka"
+    )
 
-    time.sleep(3)
+    bot.send_message(message.chat.id, info_text, parse_mode="Markdown")
+
+    time.sleep(10)
     bot.delete_message(message.chat.id, message.message_id)
 
 #/ban
