@@ -93,7 +93,7 @@ def send_info(message):
         "📎  ИНСТАГРАМ / INSTAGRAM: \n"
         "       [barujka.store](https://www.instagram.com/barujka.store)\n\n"
         "📎  ТИК ТОК / TIKTOK: \n"
-        "       [@barujka](https://www.tiktok.com/@barujka)\n\n\n"
+        "       [@barujka](https://www.tiktok.com/@barujka.store)\n\n\n"
         "*⬆ СОЦИАЛЬНЫЕ СЕТИ / SOCIAL MEDIA⬆*\n\n\n"
         "*⬇ КОМАНДНОЕ МЕНЮ / COMMAND MENU⬇*\n\n"
         "/info - Отображает основную информацию и полезные ссылки.\n"
@@ -197,7 +197,7 @@ def unban(message):
 FORBIDDEN_WORDS = ["PRICE", "pRice", "pRICe", "pRICE", "pRice", "prIce", "priCe", "pricE", "PRice", "PRIce", "PRICe", "price"]
 
 # ID
-ALLOWED_CHANNEL_IDS = [-1001696392169, -1002168291561, -1002327413167]
+ALLOWED_CHANNEL_IDS = [-1001696392169, -1002168291561, -1002327413167, -1002656374686]
 
 @bot.message_handler(content_types=["text", "photo", "video", "document", "audio", "voice", "video_note"])
 def handle_forwarded_message(message):
